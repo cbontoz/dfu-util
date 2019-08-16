@@ -150,12 +150,16 @@ int dfu_get_status( struct dfu_if *dif, struct dfu_status *status )
 
     if( 6 == result ) {
         status->bStatus = buffer[0];
+#if defined(STM32_POLLTIMEOUT)
+        status->bwPollTimeout = STM32_POLLTIMEOUT;
+#else
         if (dif->quirks & QUIRK_POLLTIMEOUT)
             status->bwPollTimeout = DEFAULT_POLLTIMEOUT;
         else
             status->bwPollTimeout = ((0xff & buffer[3]) << 16) |
                                     ((0xff & buffer[2]) << 8)  |
                                     (0xff & buffer[1]);
+#endif // STM32_POLLTIMEOUT
         status->bState  = buffer[4];
         status->iString = buffer[5];
     }

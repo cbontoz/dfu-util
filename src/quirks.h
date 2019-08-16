@@ -20,7 +20,8 @@
 #define QUIRK_FORCE_DFU11  (1<<1)
 
 /* Fallback value, works for OpenMoko */
-#define DEFAULT_POLLTIMEOUT  5
+#define DEFAULT_POLLTIMEOUT  200
+#define STM32_POLLTIMEOUT  50
 
 uint16_t get_quirks(uint16_t vendor, uint16_t product, uint16_t bcdDevice);
 
